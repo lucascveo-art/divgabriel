@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media Kit - Gabriel Pela Europa</title>
     
-    <!-- Importação das Fontes (Google Fonts) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Importação das Fontes (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
 
@@ -271,15 +272,58 @@
             content: '';
             position: absolute;
             inset: 0;
-            /* Placeholder com sobreposição de gradiente */
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%), 
-                              url('https://i.imgur.com/1aJnFfv.jpeg');
+            /* ATUALIZADO: Removida a imagem de fundo estática. O gradiente de legibilidade permanece. */
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);
+            /* background-size e background-position não são mais necessários se não houver imagem */
+            /* background-size: cover; */
+            /* background-position: center; */
+            
+            /* ATUALIZADO: Z-index para ficar ACIMA do novo slideshow, mas ABAIXO do conteúdo */
+            z-index: -1;
+        }
+
+        /* --- NOVO: SLIDESHOW DE FUNDO DO HERO --- */
+        .hero-background-slider {
+            position: absolute;
+            inset: 0;
+            z-index: -2; /* Fica atrás de tudo (inclusive do ::before) */
+            overflow: hidden;
+        }
+
+        .hero-bg-image {
+            position: absolute;
+            inset: 0;
             background-size: cover;
             background-position: center;
-            z-index: -1;
-            /* Efeito de Parallax sutil (opcional) */
-            /* background-attachment: fixed; */ 
+            opacity: 0;
+            /* Transição de fade-in/out das imagens */
+            transition: opacity 0.8s ease-in-out; 
+            will-change: opacity;
         }
+
+        .hero-bg-image.active {
+            opacity: 1;
+        }
+
+        /* Camada de transição "Purple Flash" */
+        .hero-transition-flash {
+            position: absolute;
+            inset: 0;
+            /* Usamos o Magenta para o "flash" de maior impacto */
+            background-color: var(--brand-magenta);
+            opacity: 0;
+            z-index: 10; /* Fica na frente das imagens (dentro do slider) */
+            /* Transição de flash RÁPIDA */
+            transition: opacity 0.2s linear; 
+            will-change: opacity;
+            pointer-events: none;
+        }
+
+        .hero-transition-flash.active {
+            opacity: 1;
+        }
+        /* --- FIM: SLIDESHOW DE FUNDO --- */
+
 
         .hero-content {
             max-width: 800px;
@@ -476,7 +520,7 @@
             color: var(--brand-magenta);
         }
 
-        /* --- Ícone Pulsante com Partículas (AGORA COM IMAGEM) --- */
+        /* --- NOVO: Ícone Pulsante com Partículas --- */
         .plan-icon-container {
             width: 60px;
             height: 60px;
@@ -490,26 +534,13 @@
         .plan-icon {
             width: 50px;
             height: 50px;
-            border-radius: 50%; /* Mantém o formato circular */
+            background: linear-gradient(45deg, var(--brand-purple), var(--brand-magenta));
+            border-radius: 50%;
             animation: pulse-icon 2s infinite alternate;
             z-index: 2; /* Fica na frente das partículas */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--bg-deep-blue); /* Fundo para a imagem */
-            overflow: hidden; /* Garante que a imagem fique dentro do círculo */
-            box-shadow: 0 0 15px 0px var(--brand-purple); /* Sombra inicial */
         }
 
-        .plan-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Garante que a imagem cubra o círculo */
-            border-radius: 50%; /* A imagem também circular */
-            display: block; /* Remove espaço extra abaixo da imagem */
-        }
-
-        /* Animação de pulso do ícone central (agora a imagem) */
+        /* Animação de pulso do ícone central */
         @keyframes pulse-icon {
             from {
                 transform: scale(0.95);
@@ -741,13 +772,16 @@
 </head>
 <body>
 
-    <!-- SKILL 1: PRELOADER --><div id="preloader">
+    <!-- SKILL 1: PRELOADER -->
+    <div id="preloader">
         <h1>Gabriel Pela Europa</h1>
     </div>
 
-    <!-- SKILL 2: MOUSE GLOW (HOLOFOTE) --><div id="mouse-glow"></div>
+    <!-- SKILL 2: MOUSE GLOW (HOLOFOTE) -->
+    <div id="mouse-glow"></div>
 
-    <!-- HEADER --><header id="main-header">
+    <!-- HEADER -->
+    <header id="main-header">
         <div class="container">
             <a href="#hero" class="logo">GPE.</a>
             
@@ -765,7 +799,21 @@
     </header>
 
     <main>
-        <!-- HERO --><section id="hero">
+        <!-- HERO -->
+        <section id="hero">
+            
+            <!-- NOVO: Container do Slideshow de Fundo -->
+            <div class="hero-background-slider">
+                <!-- As 3 Imagens do Slideshow -->
+                <div class="hero-bg-image" style="background-image: url('https://i.imgur.com/rbUGkU5.jpeg');"></div>
+                <div class="hero-bg-image" style="background-image: url('https://i.imgur.com/tgOzpG3.jpeg');"></div>
+                <div class="hero-bg-image" style="background-image: url('https://i.imgur.com/9qkbaoj.jpeg');"></div>
+                
+                <!-- Camada de Efeito "Purple Flash" para a transição -->
+                <div class="hero-transition-flash"></div>
+            </div>
+            
+            <!-- O conteúdo do Hero (texto e botão) permanece aqui, na frente -->
             <div class="hero-content reveal-on-scroll">
                 <h1>Alcance quem sonha em viver na Europa.</h1>
                 <h3>Conteúdo autêntico que gera 1.7M+ de visualizações.</h3>
@@ -773,13 +821,16 @@
             </div>
         </section>
 
-        <!-- SKILL 4: ANALYTICS DASHBOARD --><section id="analytics" class="content-section">
+        <!-- SKILL 4: ANALYTICS DASHBOARD -->
+        <section id="analytics" class="content-section">
             <div class="container">
                 <h2 class="reveal-on-scroll">A Audiência Mensal que sua Marca Conquista</h2>
                 
-                <!-- Stats de Impacto --><div class="stats-grid">
+                <!-- Stats de Impacto -->
+                <div class="stats-grid">
                     <div class="stat-item reveal-on-scroll" style="transition-delay: 100ms;">
-                        <!-- O data-target é usado pelo JS para o counter-up --><h3 class="stat-number" data-target="1.7" data-suffix="M+">0</h3>
+                        <!-- O data-target é usado pelo JS para o counter-up -->
+                        <h3 class="stat-number" data-target="1.7" data-suffix="M+">0</h3>
                         <p>Visualizações Totais</p>
                     </div>
                     <div class="stat-item reveal-on-scroll" style="transition-delay: 200ms;">
@@ -788,7 +839,8 @@
                     </div>
                 </div>
 
-                <!-- Gráficos Demográficos --><div class="charts-grid">
+                <!-- Gráficos Demográficos -->
+                <div class="charts-grid">
                     <div class="chart-group reveal-on-scroll" style="transition-delay: 300ms;">
                         <h3>Gênero</h3>
                         <div class="chart-item">
@@ -797,7 +849,8 @@
                                 <span>57,2%</span>
                             </div>
                             <div class="chart-bar-container">
-                                <!-- O data-width é usado pelo JS para a animação --><div class="chart-bar" data-width="57.2%"></div>
+                                <!-- O data-width é usado pelo JS para a animação -->
+                                <div class="chart-bar" data-width="57.2%"></div>
                             </div>
                         </div>
                         <div class="chart-item">
@@ -836,18 +889,20 @@
             </div>
         </section>
 
-        <!-- SKILL 3: PLANOS DE DIVULGAÇÃO (3D TILT) --><section id="plans" class="content-section">
+        <!-- SKILL 3: PLANOS DE DIVULGAÇÃO (3D TILT) -->
+        <section id="plans" class="content-section">
             <div class="container">
                 <h2 class="reveal-on-scroll">Pacotes de Parceria</h2>
                 
                 <div class="plans-grid">
-                    <!-- Card Standard (com Tilt) --><div class="plan-card reveal-on-scroll" style="transition-delay: 100ms;">
-                        <!-- NOVO: Ícone Pulsante com Imagem --><div class="plan-icon-container">
-                            <div class="plan-icon">
-                                <img src="https://i.imgur.com/Gyd0AWy.png" alt="Ícone de Plano Standard">
-                            </div>
+                    <!-- Card Standard (com Tilt) -->
+                    <div class="plan-card reveal-on-scroll" style="transition-delay: 100ms;">
+                        <!-- NOVO: Ícone Pulsante -->
+                        <div class="plan-icon-container">
+                            <div class="plan-icon"></div>
                         </div>
-                        <!-- FIM: Ícone Pulsante --><h3>Standard</h3>
+                        <!-- FIM: Ícone Pulsante -->
+                        <h3>Standard</h3>
                         <p>Ideal para marcas que buscam um impacto rápido e focado.</p>
                         <ul>
                             <li>1x Post Patrocinado (Feed)</li>
@@ -859,13 +914,14 @@
                         </a>
                     </div>
                     
-                    <!-- Card Premium (com Tilt e Destaque) --><div class="plan-card premium reveal-on-scroll" style="transition-delay: 200ms;">
-                        <!-- NOVO: Ícone Pulsante com Imagem --><div class="plan-icon-container">
-                            <div class="plan-icon">
-                                <img src="https://i.imgur.com/Gyd0AWy.png" alt="Ícone de Plano Premium">
-                            </div>
+                    <!-- Card Premium (com Tilt e Destaque) -->
+                    <div class="plan-card premium reveal-on-scroll" style="transition-delay: 200ms;">
+                        <!-- NOVO: Ícone Pulsante -->
+                        <div class="plan-icon-container">
+                            <div class="plan-icon"></div>
                         </div>
-                        <!-- FIM: Ícone Pulsante --><h3>Premium</h3>
+                        <!-- FIM: Ícone Pulsante -->
+                        <h3>Premium</h3>
                         <p>A solução completa para máxima visibilidade e engajamento.</p>
                         <ul>
                             <li>1x Reels (Produção Completa)</li>
@@ -881,14 +937,16 @@
             </div>
         </section>
 
-        <!-- SKILL 5: MARCAS QUE CONFIARAM (MARQUEE) --><section id="brands" class="content-section">
+        <!-- SKILL 5: MARCAS QUE CONFIARAM (MARQUEE) -->
+        <section id="brands" class="content-section">
             <div class="container">
                 <h2 class="reveal-on-scroll">Marcas que já cresceram conosco</h2>
             </div>
             
             <div class="marquee-container">
                 <div class="marquee-content">
-                    <!-- O JS vai duplicar este bloco <span> para o loop --><span>
+                    <!-- O JS vai duplicar este bloco <span> para o loop -->
+                    <span>
                         <img src="httpsheading-logo-marca-1.png" alt="Logo Marca Parceira 1" onerror="this.src='https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+1'; this.onerror=null;">
                         <img src="https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+2" alt="Logo Marca Parceira 2">
                         <img src="https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+3" alt="Logo Marca Parceira 3">
@@ -900,7 +958,8 @@
             </div>
         </section>
 
-        <!-- CONTATO (FECHAMENTO) --><section id="contact" class="content-section">
+        <!-- CONTATO (FECHAMENTO) -->
+        <section id="contact" class="content-section">
             <div class="container reveal-on-scroll">
                 <h2>Vamos criar algo incrível juntos?</h2>
                 <p>Estou pronto para entender as necessidades da sua marca e criar uma campanha autêntica que conecta com milhares de pessoas.</p>
@@ -911,7 +970,8 @@
         </section>
     </main>
 
-    <!-- FOOTER --><footer>
+    <!-- FOOTER -->
+    <footer>
         <div class="container">
             <div class="social-links">
                 <a href="https://www.instagram.com/gabrielpelaeuropa" target="_blank">Instagram</a>
@@ -1075,6 +1135,54 @@
                     marqueeContent.appendChild(clone);
                 }
             }
+            
+            // --- [ NOVO: SKILL 7 - LÓGICA DO SLIDESHOW DO HERO ] ---
+            function initHeroSlideshow() {
+                const images = document.querySelectorAll('.hero-bg-image');
+                const flashLayer = document.querySelector('.hero-transition-flash');
+                const slideInterval = 6000; // 6 segundos
+                const flashDuration = 200; // 200ms (deve bater com a transição CSS)
+                let currentIndex = 0;
+
+                if (images.length === 0 || !flashLayer) return;
+
+                // Mostra a primeira imagem imediatamente
+                images[currentIndex].classList.add('active');
+
+                const nextSlide = () => {
+                    const nextIndex = (currentIndex + 1) % images.length;
+                    
+                    const currentImage = images[currentIndex];
+                    const nextImage = images[nextIndex];
+
+                    // --- A "Purple Dissolve" Skill ---
+                    
+                    // 1. Imagem atual (1) começa a dar fade-out
+                    currentImage.classList.remove('active');
+                    
+                    // 2. SIMULTANEAMENTE, "Purple Flash" (M) dá fade-in
+                    flashLayer.classList.add('active');
+
+                    // 3. Espera o flash ficar 100% (flashDuration)
+                    setTimeout(() => {
+                        // 4. "Purple Flash" (M) começa a dar fade-out
+                        flashLayer.classList.remove('active');
+
+                        // 5. SIMULTANEAMENTE, Próxima imagem (2) dá fade-in (por baixo do flash)
+                        nextImage.classList.add('active');
+
+                        // 6. Atualiza o índice para o próximo ciclo
+                        currentIndex = nextIndex;
+
+                    }, flashDuration);
+                };
+                
+                // Inicia o ciclo automático
+                setInterval(nextSlide, slideInterval);
+            }
+
+            // Inicia o slideshow
+            initHeroSlideshow();
             
         });
     </script>
