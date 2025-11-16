@@ -534,7 +534,16 @@
         .plan-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, var(--brand-purple), var(--brand-magenta));
+            /* background: linear-gradient(45deg, var(--brand-purple), var(--brand-magenta)); */ /* Removido */
+            
+            /* --- ATUALIZADO: Imagem do ícone sobreposta ao gradiente --- */
+            background-image: url('https://i.imgur.com/Gyd0AWy.png'), 
+                              linear-gradient(45deg, var(--brand-purple), var(--brand-magenta));
+            background-size: 60%, cover; /* 60% para o ícone, 'cover' para o gradiente (AUMENTADO DE 50%) */
+            background-position: center; /* Aplica a ambos */
+            background-repeat: no-repeat; /* Aplica a ambos */
+            /* --- FIM DA ATUALIZAÇÃO --- */
+            
             border-radius: 50%;
             animation: pulse-icon 2s infinite alternate;
             z-index: 2; /* Fica na frente das partículas */
