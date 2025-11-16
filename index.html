@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media Kit - Gabriel Pela Europa</title>
     
-    <!-- Importação das Fontes (Google Fonts) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Importação das Fontes (Google Fonts) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
 
@@ -80,19 +79,27 @@
             border: none;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* --- NOVO: Animação de Pulso (Padrão Roxo) --- */
+            animation: pulse-button 2s infinite;
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(127, 86, 217, 0.2);
+            /* Pausa a animação no hover para focar no efeito de sombra */
+            animation-play-state: paused;
         }
 
         .cta-button.premium {
             background: var(--brand-magenta);
+            /* --- NOVO: Animação de Pulso (Premium Magenta) --- */
+            animation: pulse-button-premium 2s infinite;
         }
 
         .cta-button.premium:hover {
             box-shadow: 0 10px 20px rgba(198, 47, 205, 0.2);
+            animation-play-state: paused;
         }
         
         .content-section {
@@ -129,6 +136,39 @@
                 opacity: 1;
                 transform: scale(1);
             }
+        }
+
+        /* --- [ NOVO: ANIMAÇÕES DE PULSO DOS BOTÕES ] --- */
+        @keyframes pulse-button {
+            0% {
+                box-shadow: 0 0 0 0 rgba(127, 86, 217, 0.4); /* --brand-purple */
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(127, 86, 217, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(127, 86, 217, 0);
+            }
+        }
+
+        @keyframes pulse-button-premium {
+            0% {
+                box-shadow: 0 0 0 0 rgba(198, 47, 205, 0.4); /* --brand-magenta */
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(198, 47, 205, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(198, 47, 205, 0);
+            }
+        }
+
+
+        /* --- [ SKILL: Animação de textura para o H1 do Hero ] --- */
+        @keyframes moveTexture {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
         }
 
         .preloader-hidden {
@@ -233,7 +273,7 @@
             inset: 0;
             /* Placeholder com sobreposição de gradiente */
             background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%), 
-                              url('placeholder-gabriel-hero-16x9.jpg');
+                              url('https://i.imgur.com/1aJnFfv.jpeg');
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -249,7 +289,22 @@
             font-size: 3.8rem;
             line-height: 1.2;
             margin-bottom: 1rem;
-            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            
+            /* --- [ UPGRADE 3.0: Efeito de textura com MAIS cor roxa ] --- */
+            /* Camada de gradiente roxo sobre a textura para intensificar a cor */
+            background-image: linear-gradient(rgba(127, 86, 217, 0.4), rgba(198, 47, 205, 0.4)), 
+                              url('https://i.imgur.com/sYv1mUf.jpeg');
+            background-size: 300% 300%; /* Tamanho grande para a animação de "onda" */
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent; /* Para compatibilidade */
+            
+            /* Animação da textura */
+            animation: moveTexture 25s linear infinite;
+            
+            /* Remove o text-shadow antigo para focar na textura */
+            /* text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); */
         }
 
         .hero-content h3 {
@@ -421,6 +476,106 @@
             color: var(--brand-magenta);
         }
 
+        /* --- Ícone Pulsante com Partículas (AGORA COM IMAGEM) --- */
+        .plan-icon-container {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            margin: 0 auto 1.5rem auto; /* Centraliza e dá espaço */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plan-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Mantém o formato circular */
+            animation: pulse-icon 2s infinite alternate;
+            z-index: 2; /* Fica na frente das partículas */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-deep-blue); /* Fundo para a imagem */
+            overflow: hidden; /* Garante que a imagem fique dentro do círculo */
+            box-shadow: 0 0 15px 0px var(--brand-purple); /* Sombra inicial */
+        }
+
+        .plan-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra o círculo */
+            border-radius: 50%; /* A imagem também circular */
+            display: block; /* Remove espaço extra abaixo da imagem */
+        }
+
+        /* Animação de pulso do ícone central (agora a imagem) */
+        @keyframes pulse-icon {
+            from {
+                transform: scale(0.95);
+                box-shadow: 0 0 15px 0px var(--brand-purple);
+                opacity: 0.9;
+            }
+            to {
+                transform: scale(1);
+                box-shadow: 0 0 25px 5px var(--brand-magenta);
+                opacity: 1;
+            }
+        }
+
+        /* Partículas (usando pseudo-elementos) */
+        .plan-icon-container::before,
+        .plan-icon-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 1; /* Fica atrás do ícone central */
+
+            /* Múltiplas sombras = Múltiplas partículas */
+            /* formato: x-offset y-offset blur-radius spread-radius color */
+            /* Ajustei o spread para 0px para serem "mini partículas" */
+            box-shadow: 
+                5px -10px 0 0px var(--brand-purple),
+                -15px -5px 0 0px var(--brand-magenta),
+                20px 0px 0 0px var(--brand-purple),
+                -5px 15px 0 0px var(--brand-magenta),
+                10px 20px 0 0px var(--brand-purple);
+            
+            animation: float-particles 4s infinite linear;
+        }
+
+        /* Segundo set de partículas (para mais densidade) */
+        .plan-icon-container::after {
+            box-shadow: 
+                -5px -15px 0 0px var(--brand-magenta),
+                10px -8px 0 0px var(--brand-purple),
+                -20px 5px 0 0px var(--brand-magenta),
+                0px 20px 0 0px var(--brand-purple),
+                15px 10px 0 0px var(--brand-magenta);
+            
+            /* Desencontra as animações */
+            animation-delay: 2s;
+        }
+
+        /* Animação das partículas: elas flutuam para fora, giram e somem */
+        @keyframes float-particles {
+            0% {
+                transform: scale(0.5) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* --- FIM: Ícone Pulsante --- */
+
+
         /* --- [ 9. SKILL: MARCAS (MARQUEE) ] --- */
         #brands {
             padding-bottom: 0; /* O marquee toca a borda inferior */
@@ -586,16 +741,13 @@
 </head>
 <body>
 
-    <!-- SKILL 1: PRELOADER -->
-    <div id="preloader">
+    <!-- SKILL 1: PRELOADER --><div id="preloader">
         <h1>Gabriel Pela Europa</h1>
     </div>
 
-    <!-- SKILL 2: MOUSE GLOW (HOLOFOTE) -->
-    <div id="mouse-glow"></div>
+    <!-- SKILL 2: MOUSE GLOW (HOLOFOTE) --><div id="mouse-glow"></div>
 
-    <!-- HEADER -->
-    <header id="main-header">
+    <!-- HEADER --><header id="main-header">
         <div class="container">
             <a href="#hero" class="logo">GPE.</a>
             
@@ -613,8 +765,7 @@
     </header>
 
     <main>
-        <!-- HERO -->
-        <section id="hero">
+        <!-- HERO --><section id="hero">
             <div class="hero-content reveal-on-scroll">
                 <h1>Alcance quem sonha em viver na Europa.</h1>
                 <h3>Conteúdo autêntico que gera 1.7M+ de visualizações.</h3>
@@ -622,16 +773,13 @@
             </div>
         </section>
 
-        <!-- SKILL 4: ANALYTICS DASHBOARD -->
-        <section id="analytics" class="content-section">
+        <!-- SKILL 4: ANALYTICS DASHBOARD --><section id="analytics" class="content-section">
             <div class="container">
-                <h2 class="reveal-on-scroll">A Audiência que sua Marca Conquista</h2>
+                <h2 class="reveal-on-scroll">A Audiência Mensal que sua Marca Conquista</h2>
                 
-                <!-- Stats de Impacto -->
-                <div class="stats-grid">
+                <!-- Stats de Impacto --><div class="stats-grid">
                     <div class="stat-item reveal-on-scroll" style="transition-delay: 100ms;">
-                        <!-- O data-target é usado pelo JS para o counter-up -->
-                        <h3 class="stat-number" data-target="1.7" data-suffix="M+">0</h3>
+                        <!-- O data-target é usado pelo JS para o counter-up --><h3 class="stat-number" data-target="1.7" data-suffix="M+">0</h3>
                         <p>Visualizações Totais</p>
                     </div>
                     <div class="stat-item reveal-on-scroll" style="transition-delay: 200ms;">
@@ -640,8 +788,7 @@
                     </div>
                 </div>
 
-                <!-- Gráficos Demográficos -->
-                <div class="charts-grid">
+                <!-- Gráficos Demográficos --><div class="charts-grid">
                     <div class="chart-group reveal-on-scroll" style="transition-delay: 300ms;">
                         <h3>Gênero</h3>
                         <div class="chart-item">
@@ -650,8 +797,7 @@
                                 <span>57,2%</span>
                             </div>
                             <div class="chart-bar-container">
-                                <!-- O data-width é usado pelo JS para a animação -->
-                                <div class="chart-bar" data-width="57.2%"></div>
+                                <!-- O data-width é usado pelo JS para a animação --><div class="chart-bar" data-width="57.2%"></div>
                             </div>
                         </div>
                         <div class="chart-item">
@@ -690,15 +836,18 @@
             </div>
         </section>
 
-        <!-- SKILL 3: PLANOS DE DIVULGAÇÃO (3D TILT) -->
-        <section id="plans" class="content-section">
+        <!-- SKILL 3: PLANOS DE DIVULGAÇÃO (3D TILT) --><section id="plans" class="content-section">
             <div class="container">
                 <h2 class="reveal-on-scroll">Pacotes de Parceria</h2>
                 
                 <div class="plans-grid">
-                    <!-- Card Standard (com Tilt) -->
-                    <div class="plan-card reveal-on-scroll" style="transition-delay: 100ms;">
-                        <h3>Standard</h3>
+                    <!-- Card Standard (com Tilt) --><div class="plan-card reveal-on-scroll" style="transition-delay: 100ms;">
+                        <!-- NOVO: Ícone Pulsante com Imagem --><div class="plan-icon-container">
+                            <div class="plan-icon">
+                                <img src="https://i.imgur.com/Gyd0AWy.png" alt="Ícone de Plano Standard">
+                            </div>
+                        </div>
+                        <!-- FIM: Ícone Pulsante --><h3>Standard</h3>
                         <p>Ideal para marcas que buscam um impacto rápido e focado.</p>
                         <ul>
                             <li>1x Post Patrocinado (Feed)</li>
@@ -710,9 +859,13 @@
                         </a>
                     </div>
                     
-                    <!-- Card Premium (com Tilt e Destaque) -->
-                    <div class="plan-card premium reveal-on-scroll" style="transition-delay: 200ms;">
-                        <h3>Premium</h3>
+                    <!-- Card Premium (com Tilt e Destaque) --><div class="plan-card premium reveal-on-scroll" style="transition-delay: 200ms;">
+                        <!-- NOVO: Ícone Pulsante com Imagem --><div class="plan-icon-container">
+                            <div class="plan-icon">
+                                <img src="https://i.imgur.com/Gyd0AWy.png" alt="Ícone de Plano Premium">
+                            </div>
+                        </div>
+                        <!-- FIM: Ícone Pulsante --><h3>Premium</h3>
                         <p>A solução completa para máxima visibilidade e engajamento.</p>
                         <ul>
                             <li>1x Reels (Produção Completa)</li>
@@ -728,17 +881,15 @@
             </div>
         </section>
 
-        <!-- SKILL 5: MARCAS QUE CONFIARAM (MARQUEE) -->
-        <section id="brands" class="content-section">
+        <!-- SKILL 5: MARCAS QUE CONFIARAM (MARQUEE) --><section id="brands" class="content-section">
             <div class="container">
-                <h2 class="reveal-on-scroll">Marcas que já cresceram connosco</h2>
+                <h2 class="reveal-on-scroll">Marcas que já cresceram conosco</h2>
             </div>
             
             <div class="marquee-container">
                 <div class="marquee-content">
-                    <!-- O JS vai duplicar este bloco <span> para o loop -->
-                    <span>
-                        <img src="placeholder-logo-marca-1.png" alt="Logo Marca Parceira 1">
+                    <!-- O JS vai duplicar este bloco <span> para o loop --><span>
+                        <img src="httpsheading-logo-marca-1.png" alt="Logo Marca Parceira 1" onerror="this.src='https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+1'; this.onerror=null;">
                         <img src="https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+2" alt="Logo Marca Parceira 2">
                         <img src="https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+3" alt="Logo Marca Parceira 3">
                         <img src="https://placehold.co/150x50/FFFFFF/CCCCCC?text=Marca+4" alt="Logo Marca Parceira 4">
@@ -749,8 +900,7 @@
             </div>
         </section>
 
-        <!-- CONTATO (FECHAMENTO) -->
-        <section id="contact" class="content-section">
+        <!-- CONTATO (FECHAMENTO) --><section id="contact" class="content-section">
             <div class="container reveal-on-scroll">
                 <h2>Vamos criar algo incrível juntos?</h2>
                 <p>Estou pronto para entender as necessidades da sua marca e criar uma campanha autêntica que conecta com milhares de pessoas.</p>
@@ -761,8 +911,7 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer>
+    <!-- FOOTER --><footer>
         <div class="container">
             <div class="social-links">
                 <a href="https://www.instagram.com/gabrielpelaeuropa" target="_blank">Instagram</a>
