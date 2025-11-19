@@ -671,6 +671,129 @@
             }
         }
         
+        /* --- [ NOVO: ESTILOS PARA SEÇÃO DE PORTFÓLIO (STORIES) ] --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .story-card {
+            position: relative;
+            aspect-ratio: 9 / 16; /* Formato Stories */
+            background-color: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2a2f37;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .story-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: var(--brand-purple);
+        }
+
+        /* Imagem de Fundo / Placeholder do Vídeo */
+        .story-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+        }
+
+        .story-card:hover .story-thumb {
+            opacity: 0.4; /* Escurece para destacar o botão de play */
+            transform: scale(1.05);
+        }
+
+        /* Overlay com Ícone de Play */
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        /* Triângulo do Play */
+        .play-icon::after {
+            content: '';
+            width: 0; 
+            height: 0; 
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 16px solid white;
+            margin-left: 4px; /* Ajuste visual */
+        }
+
+        .story-card:hover .play-icon {
+            transform: scale(1.1);
+            background: var(--brand-purple);
+            border-color: var(--brand-purple);
+            box-shadow: 0 0 20px var(--brand-purple);
+        }
+
+        .client-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 14, 27, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            z-index: 3;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Responsividade do Grid para Mobile (Scroll Horizontal) */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                padding-bottom: 1.5rem; /* Espaço para scrollbar não cortar sombra */
+                gap: 1rem;
+                margin-left: -1rem; /* Quebra as margens do container para encostar na borda */
+                margin-right: -1rem;
+                padding-left: 1rem; /* Padding interno para compensar */
+                padding-right: 1rem;
+            }
+            
+            .story-card {
+                min-width: 200px; /* Tamanho fixo no mobile */
+                scroll-snap-align: center;
+            }
+        }
+
+        
         /* --- [ 10. CONTATO (FECHAMENTO) ] --- */
         #contact {
             text-align: center;
@@ -797,6 +920,8 @@
             <nav class="main-nav">
                 <a href="#analytics">Audiência</a>
                 <a href="#plans">Parcerias</a>
+                <!-- Link Adicionado -->
+                <a href="#portfolio">Portfólio</a>
                 <a href="#brands">Marcas</a>
                 <a href="#contact">Contato</a>
             </nav>
@@ -945,6 +1070,89 @@
                 </div>
             </div>
         </section>
+
+        <!-- NOVA SEÇÃO: CAMPANHAS EM DESTAQUE (PORTFÓLIO) -->
+        <section id="portfolio" class="content-section">
+            <div class="container">
+                <h2 class="reveal-on-scroll">Campanhas em Destaque</h2>
+                <p style="text-align: center;">Confira alguns dos conteúdos que já criamos.</p>
+
+                <div class="portfolio-grid">
+                    <!-- VIDEO 1: Ademicon (ATUALIZADO COM VIMEO) -->
+                    <div class="story-card reveal-on-scroll" style="transition-delay: 100ms;">
+                        <iframe 
+                            src="https://player.vimeo.com/video/1138528366?title=0&byline=0&portrait=0" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <div class="client-badge" style="pointer-events: none;">Ademicon</div>
+                    </div>
+
+                    <!-- VIDEO 2: Camisa Comigo (ATUALIZADO COM VIMEO) -->
+                    <div class="story-card reveal-on-scroll" style="transition-delay: 200ms;">
+                        <iframe 
+                            src="https://player.vimeo.com/video/1138530144?title=0&byline=0&portrait=0" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <div class="client-badge" style="pointer-events: none;">Camisa Comigo</div>
+                    </div>
+
+                    <!-- VIDEO 3: Sendwave (ATUALIZADO COM VIMEO) -->
+                    <div class="story-card reveal-on-scroll" style="transition-delay: 300ms;">
+                        <iframe 
+                            src="https://player.vimeo.com/video/1138525948?title=0&byline=0&portrait=0" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <div class="client-badge" style="pointer-events: none;">Sendwave</div>
+                    </div>
+
+                    <!-- VIDEO 4: Kadan Fragâncias (ATUALIZADO COM VIMEO) -->
+                    <div class="story-card reveal-on-scroll" style="transition-delay: 400ms;">
+                         <iframe 
+                            src="https://player.vimeo.com/video/1138527121?title=0&byline=0&portrait=0" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <div class="client-badge" style="pointer-events: none;">Kadan Fragâncias</div>
+                    </div>
+
+                    <!-- VIDEO 5: Prof Paula Inglês (ATUALIZADO COM VIMEO) -->
+                    <div class="story-card reveal-on-scroll" style="transition-delay: 500ms;">
+                        <iframe 
+                            src="https://player.vimeo.com/video/1138529364?title=0&byline=0&portrait=0" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <div class="client-badge" style="pointer-events: none;">Prof Paula Inglês</div>
+                    </div>
+
+                    <!-- VIDEO 6: Canais de Tv (ATUALIZADO COM VIMEO) -->
+                    <div class="story-card reveal-on-scroll" style="transition-delay: 600ms;">
+                        <iframe 
+                            src="https://player.vimeo.com/video/1138530710?title=0&byline=0&portrait=0" 
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                        <div class="client-badge" style="pointer-events: none;">Canais de Tv</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <!-- SKILL 5: MARCAS QUE CONFIARAM (MARQUEE) -->
         <section id="brands" class="content-section">
