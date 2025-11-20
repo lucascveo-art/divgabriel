@@ -650,8 +650,10 @@
             height: 65px; /* AUMENTADO DE 40px PARA 65px */
             margin: 0 3rem;
             vertical-align: middle;
-            filter: grayscale(1) opacity(0.5); /* Efeito "tech" */
-            transition: filter 0.3s ease;
+            /* REMOVIDO: filter: grayscale(1) opacity(0.5); -> Agora mostra cores originais */
+            filter: none;
+            opacity: 1;
+            transition: transform 0.3s ease;
         }
 
         .marquee-container:hover .marquee-content {
@@ -659,7 +661,8 @@
         }
         
         .marquee-content img:hover {
-            filter: grayscale(0) opacity(1);
+            /* REMOVIDO efeito de cor no hover, pois já estão coloridas. Adicionado scale leve */
+            transform: scale(1.05);
         }
 
         @keyframes marquee {
@@ -915,7 +918,8 @@
     <!-- HEADER -->
     <header id="main-header">
         <div class="container">
-            <a href="#hero" class="logo">GPE.</a>
+            <!-- ATUALIZADO: Texto da Logo alterado -->
+            <a href="#hero" class="logo">Gabriel Pela Europa</a>
             
             <nav class="main-nav">
                 <a href="#analytics">Audiência</a>
