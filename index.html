@@ -670,7 +670,9 @@
                 transform: translateX(0%);
             }
             100% {
-                transform: translateX(-100%); /* Move 100% (o bloco original) */
+                /* AJUSTE: Mudado de -100% para -50% para criar o loop infinito perfeito */
+                /* Como o conteúdo é duplicado, -50% move exatamente a largura do bloco original */
+                transform: translateX(-50%);
             }
         }
         
@@ -944,7 +946,8 @@
             <div class="hero-background-slider">
                 <!-- As 3 Imagens do Slideshow -->
                 <div class="hero-bg-image" style="background-image: url('https://i.imgur.com/rbUGkU5.jpeg');"></div>
-                <div class="hero-bg-image" style="background-image: url('https://i.imgur.com/tgOzpG3.jpeg');"></div>
+                <!-- ATUALIZADO: Imagem substituída -->
+                <div class="hero-bg-image" style="background-image: url('https://imgur.com/cGE1N94.jpeg');"></div>
                 <div class="hero-bg-image" style="background-image: url('https://i.imgur.com/9qkbaoj.jpeg');"></div>
                 
                 <!-- Camada de Efeito "Purple Flash" para a transição -->
@@ -954,7 +957,7 @@
             <!-- O conteúdo do Hero (texto e botão) permanece aqui, na frente -->
             <div class="hero-content reveal-on-scroll">
                 <h1>Alcance quem sonha em viver na Europa.</h1>
-                <h3>Conteúdo autêntico que gera 1.7M+ de visualizações.</h3>
+                <h3>Conteúdo autêntico que gera 2.0M+ de visualizações.</h3>
                 <a href="https://wa.me/393280662771" target="_blank" class="cta-button">Reservar Campanha</a>
             </div>
         </section>
@@ -968,7 +971,7 @@
                 <div class="stats-grid">
                     <div class="stat-item reveal-on-scroll" style="transition-delay: 100ms;">
                         <!-- O data-target é usado pelo JS para o counter-up -->
-                        <h3 class="stat-number" data-target="1.7" data-suffix="M+">0</h3>
+                        <h3 class="stat-number" data-target="2.0" data-suffix="M+">0</h3>
                         <p>Visualizações Totais</p>
                     </div>
                     <div class="stat-item reveal-on-scroll" style="transition-delay: 200ms;">
@@ -1198,8 +1201,8 @@
                         <!-- Marca 2 -->
                         <img src="https://imgur.com/aZAuuSr.png" alt="Logo Marca Parceira 2">
                         
-                        <!-- Marca 3 -->
-                        <img src="https://imgur.com/QIoQvJA.png" alt="Logo Marca Parceira 3">
+                        <!-- Marca 3 (ATUALIZADA) -->
+                        <img src="https://imgur.com/smLljZE.png" alt="Logo Marca Parceira 3">
                         
                         <!-- Marca 4 -->
                         <img src="https://i.imgur.com/jt8EmtD.png" alt="Logo Marca Parceira 4">
